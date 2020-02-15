@@ -1,6 +1,6 @@
 import React from "react";
 import './Board.css';
-import Piece from "./Piece";
+import PieceEnum from "./PieceEnum";
 import Square from './Square'
 
 class Board extends React.Component {
@@ -10,14 +10,14 @@ class Board extends React.Component {
         for (let i = 0; i < 8; i++) {
             let row = [];
             for (let j = 0; j < 8; j++) {
-                row.push(Piece.empty);
+                row.push(PieceEnum.empty);
             }
             board.push(row);
         }
-        board[3][3] = Piece.white;
-        board[4][4] = Piece.white;
-        board[4][3] = Piece.black;
-        board[3][4] = Piece.black;
+        board[3][3] = PieceEnum.black;
+        board[4][4] = PieceEnum.black;
+        board[4][3] = PieceEnum.white;
+        board[3][4] = PieceEnum.white;
         return board;
     }
 
@@ -35,15 +35,13 @@ class Board extends React.Component {
                     return (
                         <div className='boardRow'>
                             {row.map((square, columnIndex) => {
-                                let squareColor = columnIndex % 2 === rowIndex % 2 ? 'white' : 'black';
-                                return <Square color={squareColor} piece={this.state.board[rowIndex][columnIndex]}/>
+                                return <Square color='green' piece={this.state.board[rowIndex][columnIndex]}/>
                             })}
                         </div>
                     )
                 })}
             </div>
         )
-
     }
 }
 
