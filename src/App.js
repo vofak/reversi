@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Game from "./game/Game";
+import GameSpace from "./game/GameSpace";
 import Stats from "./stats/Stats";
 
 function App() {
     return (
         <div className='AppRow'>
-            <Game/>
+            <GameSpace/>
             <Stats/>
         </div>
     );

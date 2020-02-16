@@ -1,10 +1,12 @@
 import React from "react";
-import './Game.css';
+import './GameSpace.css';
+
 import NewGame from "./NewGame";
 import Board from "./board/Board";
 import AspectRatio from "../utils/AspectRatio";
+import PlayerEnum from "./board/PlayerEnum";
 
-class Game extends React.Component {
+class GameSpace extends React.Component {
 
     constructor(props, context) {
         super(props, context);
@@ -16,16 +18,12 @@ class Game extends React.Component {
         this.setState({inGame: true, difficulty: difficulty});
     }
 
-    makeMove(board) {
-
-    }
-
     render() {
         return (
-            <div className='Game'>
+            <div className='GameSpace'>
                 <AspectRatio ratio={1}>
                     {this.state.inGame ?
-                        <Board makeMove={this.makeMove.bind(this)}/> :
+                        <Board player={PlayerEnum.white}/> :
                         <NewGame difficulty={1} startNewGame={this.startNewGame.bind(this)}/>}
                 </AspectRatio>
             </div>
@@ -33,4 +31,4 @@ class Game extends React.Component {
     }
 }
 
-export default Game;
+export default GameSpace;
