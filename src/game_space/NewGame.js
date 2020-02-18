@@ -8,7 +8,11 @@ class NewGame extends React.Component {
     }
 
     render() {
-        return <p>newGame</p>;
+        return (
+            <div className='NewGame'>
+                <p>start new ame</p>
+            </div>
+        );
     }
 }
 

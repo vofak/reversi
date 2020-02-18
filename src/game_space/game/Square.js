@@ -7,27 +7,31 @@ class Square extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {piece: props.piece, selected: false};
+        this.state = {piece: this.props.piece, move: this.props.move, toReverse: false};
     }
 
     setPiece(piece) {
         this.setState({piece: piece});
     }
 
-    setSelected(selected) {
-        this.setState({selected: selected});
+    setMove(move) {
+        this.setState({move: move});
+    }
+
+    setToReverse(toReverse) {
+        this.setState({toReverse: toReverse});
     }
 
     onClick = () => {
-        this.props.onClick(this.props.key2);
+        this.props.onClick(this);
     };
 
     onMouseEnter = () => {
-        this.props.onMouseEnter(this.props.key2);
+        this.props.onMouseEnter(this);
     };
 
     onMouseLeave = () => {
-        this.props.onMouseLeave(this.props.key2);
+        this.props.onMouseLeave(this);
     };
 
     render() {
@@ -40,7 +44,8 @@ class Square extends React.Component {
             piece = '';
         }
 
-        let color = this.state.selected ? 'blue' : this.props.color;
+        let color = this.state.move ? 'blue' : this.props.color;
+        color = this.state.toReverse ? 'aqua' : color;
 
         return (
             <div className='SquareContainer'>

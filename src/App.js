@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import GameSpace from "./game/GameSpace";
+import GameSpace from "./game_space/GameSpace";
 import Stats from "./stats/Stats";
 
 function App() {
