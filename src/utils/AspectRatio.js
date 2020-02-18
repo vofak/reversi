@@ -8,9 +8,9 @@ class AspectRatio extends React.Component {
     }
 
     render() {
-        let pad = (1 / this.props.ratio) * 100;
+        let padding = (1 / this.props.ratio) * 100;
         return (
-            <div className='AspectRatioContainer' style={{paddingBottom: pad.toString() + '%'}}>
+            <div className='AspectRatioContainer' style={{paddingBottom: padding.toString() + '%'}}>
                 <div className='AspectRatioInner'>
                     {this.props.children}
                 </div>
