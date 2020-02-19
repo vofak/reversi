@@ -28,14 +28,13 @@ class Game extends React.Component {
     }
 
     makeMove = (square) => {
-
         let validMove = this.board.getMove(square.props.rowIndex, square.props.columnIndex);
         if (validMove) {
             this.board.makeMove(validMove);
             this.updateBoard();
 
             if (this.board.winner) {
-                console.log(this.board.winner);
+                this.props.onGameOver({winner: this.board.winner});
                 return;
             }
 
@@ -43,7 +42,7 @@ class Game extends React.Component {
             this.board.makeMove(compMove);
             this.updateBoard();
             if (this.board.winner) {
-                this.props.onGameOver(this.board.winner);
+                this.props.onGameOver({winner: this.board.winner});
             }
         }
     };

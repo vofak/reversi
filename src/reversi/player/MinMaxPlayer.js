@@ -10,7 +10,7 @@ class MinMaxPlayer {
 
     negamax(board, depth, a, b) {
         if (depth === 0 || board.winner) {
-            return {val: this.countMyStones(board)};
+            return {val: this.evaluateBoard(board)};
         }
 
         let validMoves = board.getValidMoves();

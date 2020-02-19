@@ -5,12 +5,13 @@ import NewGame from "./NewGame";
 import Game from "./game/Game";
 import AspectRatio from "../utils/AspectRatio";
 import PlayerEnum from "../reversi/player/PlayerEnum";
+import DifficultyEnum from "./DifficultyEnum";
 
 class GameSpace extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {inGame: true, difficulty: 1, height: 0, width: 0};
+        this.state = {inGame: false, player: PlayerEnum.white, difficulty: DifficultyEnum.hungry, height: 0, width: 0};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
@@ -27,7 +28,9 @@ class GameSpace extends React.Component {
         this.setState({width: window.innerWidth * 0.7, height: window.innerHeight});
     }
 
-    onGameOver = (winner) => {
+    onGameOver = (gameStats) => {
+        alert(gameStats.winner.name + " won!!!");
+        this.updateLocalStorage(gameStats);
         this.setState({inGame: false});
     };
 
@@ -35,13 +38,23 @@ class GameSpace extends React.Component {
         this.setState({inGame: true, difficulty: difficulty});
     };
 
+    updateLocalStorage(gameStats) {
+        let won = gameStats.winner === this.state.player ? 1 : 0;
+        if (!localStorage.getItem("victories")) {
+            localStorage.setItem("victories", won.toString());
+        }
+        localStorage.setItem("victories", (Number(localStorage.getItem("victories")) + won).toString());
+        this.props.onStatsChanged();
+    }
+
     render() {
         return (
             <div className='GameSpace' style={{width: this.state.width, height: this.state.height}}>
                 <AspectRatio ratio={1}>
                     {this.state.inGame ?
-                        <Game player={PlayerEnum.white} onGameOver={this.onGameOver}/> :
-                        <NewGame difficulty={1} onStartNewGame={this.onStartNewGame}/>}
+                        <Game player={this.state.player} onGameOver={this.onGameOver}
+                              difficulty={this.state.difficulty}/> :
+                        <NewGame onStartNewGame={this.onStartNewGame} difficulty={this.state.difficulty}/>}
                 </AspectRatio>
             </div>
         );
