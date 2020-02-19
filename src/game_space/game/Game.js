@@ -24,7 +24,7 @@ class Game extends React.Component {
             }
             squares.push(squaresRow);
         }
-        this.squares = squares;
+        this.squareRefs = squares;
     }
 
     makeMove = (square) => {
@@ -51,7 +51,7 @@ class Game extends React.Component {
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 8; columnIndex++) {
                 let validMove = this.board.getMove(rowIndex, columnIndex);
-                let square = this.squares[rowIndex][columnIndex].current;
+                let square = this.squareRefs[rowIndex][columnIndex].current;
                 square.setMove(validMove);
                 square.setPiece(this.board.get(rowIndex, columnIndex));
                 square.setToReverse(false);
@@ -80,7 +80,7 @@ class Game extends React.Component {
     };
 
     getSquare(position) {
-        return this.squares[position.rowIndex][position.columnIndex].current;
+        return this.squareRefs[position.rowIndex][position.columnIndex].current;
     }
 
     render() {
@@ -93,7 +93,7 @@ class Game extends React.Component {
                                 let move = this.board.getMove(rowIndex, columnIndex);
                                 return <Square rowIndex={rowIndex}
                                                columnIndex={columnIndex}
-                                               ref={this.squares[rowIndex][columnIndex]}
+                                               ref={this.squareRefs[rowIndex][columnIndex]}
                                                color='green'
                                                piece={this.board.get(rowIndex, columnIndex)}
                                                move={move}
