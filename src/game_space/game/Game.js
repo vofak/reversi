@@ -4,6 +4,10 @@ import './Game.css';
 import Square from './Square'
 import Board from '../../reversi/Board';
 import SimplePlayer from "../../reversi/player/SimplePlayer";
+import DifficultyEnum from "../DifficultyEnum";
+import RandomPlayer from "../../reversi/player/RandomPlayer";
+import HungryPlayer from "../../reversi/player/HungryPlayer";
+import PlayerEnum from "../../reversi/player/PlayerEnum";
 
 class Game extends React.Component {
 
@@ -12,7 +16,23 @@ class Game extends React.Component {
         this.createRefs();
         this.board = Board.getDefaultInitBoard();
         this.player = props.player;
-        this.actualPlayer = new SimplePlayer(4);
+        switch (this.props.difficulty) {
+            case DifficultyEnum.random:
+                this.opponent = new RandomPlayer();
+                break;
+            case DifficultyEnum.hungry:
+                this.opponent = new HungryPlayer();
+                break;
+            case DifficultyEnum.simple:
+                this.opponent = new SimplePlayer();
+                break;
+            default:
+                throw new Error("Unknown opponent player");
+        }
+
+        if (this.player !== PlayerEnum.white) {
+            this.makeOpponentMove();
+        }
     }
 
     createRefs() {
@@ -31,21 +51,24 @@ class Game extends React.Component {
         let validMove = this.board.getMove(square.props.rowIndex, square.props.columnIndex);
         if (validMove) {
             this.board.makeMove(validMove);
-            this.updateBoard();
 
             if (this.board.winner) {
                 this.props.onGameOver({winner: this.board.winner});
                 return;
             }
 
-            let compMove = this.actualPlayer.nextMove(this.board);
-            this.board.makeMove(compMove);
+            this.makeOpponentMove();
             this.updateBoard();
-            if (this.board.winner) {
-                this.props.onGameOver({winner: this.board.winner});
-            }
         }
     };
+
+    makeOpponentMove() {
+        let oppMove = this.opponent.nextMove(this.board);
+        this.board.makeMove(oppMove);
+        if (this.board.winner) {
+            this.props.onGameOver({winner: this.board.winner});
+        }
+    }
 
     updateBoard() {
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
@@ -55,6 +78,7 @@ class Game extends React.Component {
                 square.setMove(validMove);
                 square.setPiece(this.board.get(rowIndex, columnIndex));
                 square.setToReverse(false);
+                square.forceUpdate();
             }
         }
     }

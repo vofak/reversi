@@ -34,8 +34,8 @@ class GameSpace extends React.Component {
         this.setState({inGame: false});
     };
 
-    onStartNewGame = (difficulty) => {
-        this.setState({inGame: true, difficulty: difficulty});
+    onStartNewGame = (difficulty, player) => {
+        this.setState({inGame: true, difficulty: difficulty, player: player});
     };
 
     updateLocalStorage(gameStats) {
@@ -54,7 +54,7 @@ class GameSpace extends React.Component {
                     {this.state.inGame ?
                         <Game player={this.state.player} onGameOver={this.onGameOver}
                               difficulty={this.state.difficulty}/> :
-                        <NewGame onStartNewGame={this.onStartNewGame} difficulty={this.state.difficulty}/>}
+                        <NewGame onStartNewGame={this.onStartNewGame} difficulty={this.state.difficulty} player={this.state.player}/>}
                 </AspectRatio>
             </div>
         );
