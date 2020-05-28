@@ -2,12 +2,12 @@ import React from "react";
 import './Game.css';
 
 import Square from './Square'
-import Board from '../../reversi/Board';
-import SimplePlayer from "../../reversi/player/SimplePlayer";
+import Board from '../../engine/Board';
+import SimplePlayer from "../../engine/player/SimplePlayer";
 import DifficultyEnum from "../DifficultyEnum";
-import RandomPlayer from "../../reversi/player/RandomPlayer";
-import HungryPlayer from "../../reversi/player/HungryPlayer";
-import PlayerEnum from "../../reversi/player/PlayerEnum";
+import RandomPlayer from "../../engine/player/RandomPlayer";
+import HungryPlayer from "../../engine/player/HungryPlayer";
+import PlayerEnum from "../../engine/player/PlayerEnum";
 
 class Game extends React.Component {
 

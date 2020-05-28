@@ -1,7 +1,7 @@
 import React from "react";
 import './NewGame.css';
 import DifficultyEnum from "./DifficultyEnum";
-import PlayerEnum from "../reversi/player/PlayerEnum";
+import PlayerEnum from "../engine/player/PlayerEnum";
 
 class NewGame extends React.Component {
 

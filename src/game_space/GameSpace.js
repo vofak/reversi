@@ -4,7 +4,7 @@ import './GameSpace.css';
 import NewGame from "./NewGame";
 import Game from "./game/Game";
 import AspectRatio from "../utils/AspectRatio";
-import PlayerEnum from "../reversi/player/PlayerEnum";
+import PlayerEnum from "../engine/player/PlayerEnum";
 import DifficultyEnum from "./DifficultyEnum";
 
 class GameSpace extends React.Component {
