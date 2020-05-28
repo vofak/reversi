@@ -12,14 +12,18 @@ class NewGame extends React.Component {
 
     onDifficultyChange = (e) => {
         let difficulty = null;
-        if (e.target.value === "random") {
-            difficulty = DifficultyEnum.random;
-        } else if (e.target.value === "hungry") {
-            difficulty = DifficultyEnum.hungry;
-        } else if (e.target.value === "simple") {
-            difficulty = DifficultyEnum.simple;
-        } else {
-            throw new Error("Unknown difficulty");
+        switch (e.target.value) {
+            case "random":
+                difficulty = DifficultyEnum.random;
+                break;
+            case "hungry":
+                difficulty = DifficultyEnum.hungry;
+                break;
+            case "simple":
+                difficulty = DifficultyEnum.simple;
+                break;
+            default:
+                throw new Error("Unknown difficulty");
         }
         this.setState({selectedDifficulty: difficulty});
     };
