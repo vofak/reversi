@@ -6,19 +6,19 @@
     flex-direction: row;
 }
 
-.App>section {
+.App > section {
     order: 1;
     flex-grow: 1;
 }
 
-.App>nav {
+.App > nav {
     order: 2;
     width: 100px;
     height: 100vh;
     flex-grow: 0;
 }
 
-body.ModalVisible .App{
+body.ModalVisible .App {
     filter: blur(10px) grayscale(100%);
 }
 
@@ -32,7 +32,7 @@ body.ModalVisible .App{
     z-index: 100;
     left: 0;
     top: 0;
-    visibility:hidden;
+    visibility: hidden;
 }
 
 body.ModalVisible .Modal {
@@ -55,28 +55,31 @@ body.ModalVisible .Modal {
 body.ModalVisible .ModalContent {
     transform: scale(1);
 }
-.ModalContent>button {
+
+.ModalContent > button {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
-    border:none;
+    border: none;
     background: none;
     font-size: 1.5em;
 }
 
-.ModalContent>button:focus {
+.ModalContent > button:focus {
 
 }
 
-@media (max-width: 700px) {
+@media only screen and (max-width: 700px) {
     .App {
         flex-direction: column;
     }
-    .App>section {
+
+    .App > section {
         order: 2;
     }
-    .App>nav {
+
+    .App > nav {
         order: 1;
         width: 100vw;
         height: 100px;

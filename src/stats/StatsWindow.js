@@ -1,5 +1,4 @@
 import React from "react";
-import './StatsWindow.css';
 
 class StatsWindow extends React.Component {
 
