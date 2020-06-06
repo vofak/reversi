@@ -1,6 +1,5 @@
 import React from "react";
 import './Square.css';
-import AspectRatio from '../../utils/AspectRatio'
 import PieceEnum from "./PieceEnum";
 
 class Square extends React.Component {
