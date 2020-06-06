@@ -35,7 +35,7 @@ class StatsWindow extends React.Component {
         return (
             <div className='Stats'>
                 <h2>Stats</h2>
-                <p>Played: {this.state.gamesPlayed}</p>
+                <p>Games Played: {this.state.gamesPlayed}</p>
                 <p>Won: {this.state.victories}</p>
                 <p>Pieces Reversed: {this.state.piecesReversed}</p>
             </div>

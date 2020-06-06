@@ -69,6 +69,7 @@ class Game extends React.Component {
             this.board.makeMove(validMove);
 
             if (this.board.winner) {
+                alert(`${this.board.winner.name} won!!!`)
                 this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
                 this.props.onGameOver();
                 return;
@@ -84,6 +85,7 @@ class Game extends React.Component {
         this.board.makeMove(oppMove);
         if (this.board.winner) {
             this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+            alert(`${this.board.winner.name} won!!!`)
             this.props.onGameOver();
         }
     }
