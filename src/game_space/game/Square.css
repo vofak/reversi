@@ -1,18 +1,31 @@
 .Square {
-    width: 100%;
-    height: 100%;
+    width: 12.5%;
+    height: 12.5%;
     border: solid black 1px;
-    text-align: center;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.SquareContainer {
-    height: 100%;
-    width: 12.5%;
-    display: inline-block;
+.MoveSquare {
+    background-color: blue;
+}
+
+.MoveSquare:hover {
+    background-color: darkblue;
+}
+
+.ToReverseSquare {
+    background-color: aqua;
 }
 
 .Piece {
     height: 90%;
     width: 90%;
-    transform: translateY(5%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
 }

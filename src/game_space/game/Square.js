@@ -37,39 +37,39 @@ class Square extends React.Component {
     render() {
         let piece;
         if (this.state.piece === PieceEnum.white) {
-            piece = this.getPiece('white');
+            piece = this.getSvgPiece('white');
         } else if (this.state.piece === PieceEnum.black) {
-            piece = this.getPiece('black');
+            piece = this.getSvgPiece('black');
+        } else if (this.state.piece instanceof Image) {
+            piece = this.getImgPiece(this.state.piece);
         } else {
             piece = '';
         }
 
-        let color = this.state.move ? 'blue' : this.props.color;
-        color = this.state.toReverse ? 'aqua' : color;
-
         return (
-            <div className='SquareContainer'>
-                <AspectRatio ratio={1}
-                             children={
-                                 <div className='Square'
-                                      style={{backgroundColor: color}}
-                                      onClick={this.onClick}
-                                      onMouseEnter={this.onMouseEnter}
-                                      onMouseLeave={this.onMouseLeave}
-                                 >
-                                     {piece}
-                                 </div>
-                             }>
-                </AspectRatio>
-            </div>
+                <div className={`Square ${this.state.toReverse ? 'ToReverseSquare' : ''} ${this.state.move ? 'MoveSquare' : ''}`}
+                     onClick={this.onClick}
+                     onMouseEnter={this.onMouseEnter}
+                     onMouseLeave={this.onMouseLeave}
+                >
+                    {piece}
+                </div>
         )
     }
 
-    getPiece(color) {
+    getSvgPiece(color) {
         return (
             <svg xmlns="http://www.w3.org/2000/svg" className='Piece'>
                 <circle r="50%" cx="50%" cy="50%" fill={color}/>
             </svg>
+        )
+    }
+
+    getImgPiece(src) {
+        return (
+            <div className={'Piece'}>
+                <img src={src.src} alt={'piece'} style={{height: '100%'}}/>
+            </div>
         )
     }
 }

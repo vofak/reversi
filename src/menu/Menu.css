@@ -1,0 +1,49 @@
+.Menu {
+    height: 100%;
+    width: 100%;
+    background-color: lightslategrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Menu button {
+    width: 90%;
+    height: 45px;
+    text-align: center;
+    margin: 0.5em 0 0 0;
+    background-color: lightblue;
+    border-color: lightskyblue;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    transition: all 0.5s ease;
+}
+
+
+.Menu button:hover:enabled {
+    background-color: lightskyblue;
+    border-color: blue;
+    cursor: pointer;
+}
+
+.Menu button:focus {
+    background-color: lightskyblue;
+    border-color: lightskyblue;
+    border-style: solid;
+    outline: 0;
+}
+
+@media (max-width: 700px) {
+    .Menu button {
+        width: 90px;
+        height: 45px;
+        margin: auto 0 auto 1em;
+    }
+    .Menu {
+        flex-direction: row;
+        height: 50px;
+
+    }
+}

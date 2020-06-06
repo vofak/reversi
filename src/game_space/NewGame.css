@@ -43,11 +43,22 @@
     margin-right: auto;
 }
 
+.DnD {
+    height:70px;
+    border-radius: 50px;
+    border: 2px dotted #a0a0a0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes fadeIn {
     0% {
         background-color: #fee8c3;
+        border-color: #fdd591;
     }
     100% {
         background-color: #fdcb77;
+        border-color: #fcae2c;
     }
 }

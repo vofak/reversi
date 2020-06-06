@@ -7,7 +7,7 @@ class NewGame extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {selectedDifficulty: this.props.difficulty, selectedPlayer: this.props.player};
+        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white};
     }
 
     onDifficultyChange = (e) => {
@@ -42,7 +42,22 @@ class NewGame extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer);
+        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image);
+    };
+
+    onDrop = (e) => {
+        e.preventDefault();
+        let images = e.dataTransfer.files;
+        let image = images[0];
+        if (image.type.split("/")[0] === "image") {
+            let fr = new FileReader();
+            fr.addEventListener("load", e => {
+                let i = new Image();
+                i.src = fr.result;
+                this.setState({image: i})
+            })
+            fr.readAsDataURL(image);
+        }
     };
 
     render() {
@@ -52,7 +67,8 @@ class NewGame extends React.Component {
                     <div className='FormSection'>
                         <input type="radio" id="random" name="difficulty" value="random"
                                checked={this.state.selectedDifficulty === DifficultyEnum.random}
-                               onChange={this.onDifficultyChange}/>
+                               onChange={this.onDifficultyChange}
+                        autoFocus={true}/>
                         <label htmlFor="random">
                             Random
                         </label>
@@ -83,6 +99,7 @@ class NewGame extends React.Component {
                         <label htmlFor="black">
                             Black
                         </label>
+                        <div className={'DnD'} onDrop={this.onDrop} onDragOver={e => e.preventDefault()}>{!this.state.image ? 'Drop a picture if you like' : 'Piece picture selected'}</div>
                     </div>
 
                     <footer>

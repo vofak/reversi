@@ -16,6 +16,7 @@ class Game extends React.Component {
         this.createRefs();
         this.board = Board.getDefaultInitBoard();
         this.player = props.player;
+        this.image = props.image;
         switch (this.props.difficulty) {
             case DifficultyEnum.random:
                 this.opponent = new RandomPlayer();
@@ -32,6 +33,21 @@ class Game extends React.Component {
 
         if (this.player !== PlayerEnum.white) {
             this.makeOpponentMove();
+        }
+        if (this.props.spaceHeight > this.props.spaceWidth) {
+            this.state = {boardSize: this.props.spaceWidth}
+        }
+        else {
+            this.state = {boardSize: this.props.spaceHeight}
+        }
+    }
+
+    updateSize(spaceHeight, spaceWidth) {
+        if (spaceHeight > spaceWidth) {
+            this.setState({boardSize: spaceWidth})
+        }
+        else {
+            this.setState({boardSize: spaceHeight})
         }
     }
 
@@ -53,7 +69,8 @@ class Game extends React.Component {
             this.board.makeMove(validMove);
 
             if (this.board.winner) {
-                this.props.onGameOver({winner: this.board.winner});
+                this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+                this.props.onGameOver();
                 return;
             }
 
@@ -66,7 +83,8 @@ class Game extends React.Component {
         let oppMove = this.opponent.nextMove(this.board);
         this.board.makeMove(oppMove);
         if (this.board.winner) {
-            this.props.onGameOver({winner: this.board.winner});
+            this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+            this.props.onGameOver();
         }
     }
 
@@ -76,7 +94,11 @@ class Game extends React.Component {
                 let validMove = this.board.getMove(rowIndex, columnIndex);
                 let square = this.squareRefs[rowIndex][columnIndex].current;
                 square.setMove(validMove);
-                square.setPiece(this.board.get(rowIndex, columnIndex));
+                if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
+                    square.setPiece(this.image);
+                } else {
+                    square.setPiece(this.board.get(rowIndex, columnIndex));
+                }
                 square.setToReverse(false);
                 square.forceUpdate();
             }
@@ -107,28 +129,49 @@ class Game extends React.Component {
         return this.squareRefs[position.rowIndex][position.columnIndex].current;
     }
 
+    updateLocalStorage(gameStats) {
+        let won = gameStats.winner === this.state.player ? 1 : 0;
+        if (!localStorage.getItem("victories")) {
+            localStorage.setItem("victories", won.toString());
+        }
+        localStorage.setItem("victories", (Number(localStorage.getItem("victories")) + won).toString());
+
+        if (!localStorage.getItem("gamesPlayed")) {
+            localStorage.setItem("gamesPlayed", won.toString());
+        }
+        localStorage.setItem("gamesPlayed", (Number(localStorage.getItem("gamesPlayed")) + 1).toString());
+
+        if (!localStorage.getItem("piecesReversed")) {
+            localStorage.setItem("piecesReversed", won.toString());
+        }
+        localStorage.setItem("piecesReversed", (Number(localStorage.getItem("piecesReversed")) + gameStats.pieceCount).toString());
+    }
+
     render() {
         return (
-            <div className='board'>
-                {this.board.grid.map((row, rowIndex) => {
-                    return (
-                        <div className='boardRow'>
-                            {row.map((square, columnIndex) => {
-                                let move = this.board.getMove(rowIndex, columnIndex);
+                <div className='board'
+                     style={{width: this.state.boardSize, height: this.state.boardSize}}>
+                    {this.board.grid.map((row, rowIndex) => {
+                        {
+                            return row.map((square, columnIndex) => {
+                                let piece;
+                                if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
+                                    piece = this.image;
+                                } else {
+                                    piece = this.board.get(rowIndex, columnIndex);
+                                }
                                 return <Square rowIndex={rowIndex}
                                                columnIndex={columnIndex}
                                                ref={this.squareRefs[rowIndex][columnIndex]}
-                                               color='green'
-                                               piece={this.board.get(rowIndex, columnIndex)}
-                                               move={move}
+                                               piece={piece}
+                                               move={this.board.getMove(rowIndex, columnIndex)}
                                                onClick={this.makeMove}
                                                onMouseEnter={this.onMouseEnterSquare}
                                                onMouseLeave={this.onMouseLeaveSquare}/>
-                            })}
-                        </div>
-                    )
-                })}
-            </div>
+                            })
+                        }
+                    })}
+                </div>
         )
     }
 }

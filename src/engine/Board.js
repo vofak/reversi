@@ -16,6 +16,7 @@ class Board {
         this.validMoves = null;
         this.currPlayer = PlayerEnum.white;
         this.moveNumber = 1;
+        this.playerPieceCount = 0;
         this.winner = null;
     }
 
@@ -25,6 +26,7 @@ class Board {
         ret.grid[4][4] = PieceEnum.black;
         ret.grid[4][3] = PieceEnum.white;
         ret.grid[3][4] = PieceEnum.white;
+        ret.playerPieceCount = 2;
         return ret;
     }
 
@@ -75,6 +77,7 @@ class Board {
                 }
             }
         }
+        this.playerPieceCount = playerCount;
         return playerCount > oppCount ? player : opp;
     }
 
