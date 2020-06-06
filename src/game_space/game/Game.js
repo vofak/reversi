@@ -1,5 +1,7 @@
 import React from "react";
 import './Game.css';
+import tickFile from './tick.mp3';
+import bellFile from './bell.mp3';
 
 import Square from './Square'
 import Board from '../../engine/Board';
@@ -40,6 +42,8 @@ class Game extends React.Component {
         else {
             this.state = {boardSize: this.props.spaceHeight}
         }
+        this.tick = new Audio(tickFile);
+        this.bell = new Audio(bellFile);
     }
 
     updateSize(spaceHeight, spaceWidth) {
@@ -69,6 +73,9 @@ class Game extends React.Component {
             this.board.makeMove(validMove);
 
             if (this.board.winner) {
+                this.bell.pause();
+                this.bell.currentTime = 0;
+                this.bell.play();
                 alert(`${this.board.winner.name} won!!!`)
                 this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
                 this.props.onGameOver();
@@ -77,6 +84,9 @@ class Game extends React.Component {
 
             this.makeOpponentMove();
             this.updateBoard();
+            this.tick.pause();
+            this.tick.currentTime = 0;
+            this.tick.play();
         }
     };
 
@@ -84,6 +94,9 @@ class Game extends React.Component {
         let oppMove = this.opponent.nextMove(this.board);
         this.board.makeMove(oppMove);
         if (this.board.winner) {
+            this.bell.pause();
+            this.bell.currentTime = 0;
+            this.bell.play();
             this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
             alert(`${this.board.winner.name} won!!!`)
             this.props.onGameOver();
