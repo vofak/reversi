@@ -14,10 +14,8 @@
     text-align: center;
     margin: 0.5em 0 0 0;
     background-color: lightblue;
-    border-color: lightskyblue;
     border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
+    border: 2px solid lightskyblue;
     transition: all 0.5s ease;
 }
 
@@ -35,15 +33,35 @@
     outline: 0;
 }
 
+.Menu .OfflineIndicator {
+    width: 90%;
+    border-radius: 10px;
+    margin: 0.5em 0 0 0;
+    background-color: #ff7676;
+    border: 2px solid #ff3131;
+    visibility: visible;
+    float: bottom;
+    text-align: center;
+}
+
+body.Offline .Menu .OfflineIndicator {
+    visibility: visible;
+}
+
 @media only screen and (max-width: 700px) {
     .Menu button {
         width: 90px;
         height: 45px;
         margin: auto 0 auto 1em;
     }
+
     .Menu {
         flex-direction: row;
         height: 50px;
+    }
 
+    .Menu .OfflineIndicator {
+        margin: auto 0 auto 1em;
+        float: right;
     }
 }

@@ -7,7 +7,7 @@ class NewGame extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white};
+        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name:''};
     }
 
     onDifficultyChange = (e) => {
@@ -42,7 +42,7 @@ class NewGame extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image);
+        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image, this.state.name);
     };
 
     onDrop = (e) => {
@@ -60,15 +60,23 @@ class NewGame extends React.Component {
         }
     };
 
+    onNameChange = (e) => {
+        this.setState({name: e.target.value})
+    };
+
     render() {
         return (
             <div className='NewGame'>
                 <form onSubmit={this.onSubmit}>
                     <div className='FormSection'>
+                        <input type='text' id='name' placeholder='Name' required autoFocus autoComplete='off'
+                        onChange={this.onNameChange}/>
+                    </div>
+
+                    <div className='FormSection'>
                         <input type="radio" id="random" name="difficulty" value="random"
                                checked={this.state.selectedDifficulty === DifficultyEnum.random}
-                               onChange={this.onDifficultyChange}
-                        autoFocus={true}/>
+                               onChange={this.onDifficultyChange}/>
                         <label htmlFor="random">
                             Random
                         </label>

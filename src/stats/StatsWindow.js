@@ -24,10 +24,33 @@ class StatsWindow extends React.Component {
         if (!piecesReversed) {
             piecesReversed = "0";
         }
+
+        let players = JSON.parse(localStorage.getItem('players'));
+        let highestName;
+        let highestCount = 0;
+        for (let name in players) {
+            if (!players.hasOwnProperty(name)) {
+                continue;
+            }
+            let count = players[name];
+            if (count > highestCount) {
+                highestName = name;
+                highestCount = count;
+            }
+        }
+        let mostPlayed;
+        if (!highestName) {
+            mostPlayed = '-';
+        }
+        else {
+            mostPlayed = `${highestName} (${highestCount})`;
+        }
+
         this.setState({
             victories: Number(victories),
             gamesPlayed: Number(gamesPlayed),
-            piecesReversed: Number(piecesReversed)
+            piecesReversed: Number(piecesReversed),
+            mostPlayed: mostPlayed
         });
     }
 
@@ -38,6 +61,7 @@ class StatsWindow extends React.Component {
                 <p>Games Played: {this.state.gamesPlayed}</p>
                 <p>Won: {this.state.victories}</p>
                 <p>Pieces Reversed: {this.state.piecesReversed}</p>
+                <p>Most played: {this.state.mostPlayed}</p>
             </div>
         );
     }

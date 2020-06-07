@@ -19,6 +19,7 @@ class Game extends React.Component {
         this.board = Board.getDefaultInitBoard();
         this.player = props.player;
         this.image = props.image;
+        this.name = props.name;
         switch (this.props.difficulty) {
             case DifficultyEnum.random:
                 this.opponent = new RandomPlayer();
@@ -76,7 +77,7 @@ class Game extends React.Component {
                 this.bell.pause();
                 this.bell.currentTime = 0;
                 this.bell.play();
-                this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+                this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount, name: this.name});
                 alert(`${this.board.winner.name} won!!!`)
                 this.props.onGameOver();
                 return;
@@ -97,7 +98,7 @@ class Game extends React.Component {
             this.bell.pause();
             this.bell.currentTime = 0;
             this.bell.play();
-            this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+            this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount, name: this.name});
             alert(`${this.board.winner.name} won!!!`)
             this.props.onGameOver();
         }
@@ -160,6 +161,19 @@ class Game extends React.Component {
             localStorage.setItem("piecesReversed", won.toString());
         }
         localStorage.setItem("piecesReversed", (Number(localStorage.getItem("piecesReversed")) + gameStats.pieceCount).toString());
+
+        let players = JSON.parse(localStorage.getItem("players"));
+        if (!players) {
+            players = {}
+            players[gameStats.name] = 1;
+        }
+        else {
+            if (!players[gameStats.name]) {
+                players[gameStats.name] = 0;
+            }
+            players[gameStats.name] += 1;
+        }
+        localStorage.setItem("players", JSON.stringify(players));
     }
 
     render() {

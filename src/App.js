@@ -17,10 +17,22 @@ class App extends React.Component {
         window.addEventListener('popstate', this.handlePopState);
         window.history.replaceState({inGame: this.state.inGame, statsShowing: this.state.statsShowing}, 'app');
         window.addEventListener('offline', this.handleLineChange);
+        window.addEventListener('online', this.handleLineChange);
+        if (window.navigator.onLine) {
+            document.body.classList.remove('OffLine')
+        }
+        else {
+            document.body.classList.add('OffLine')
+        }
     }
 
-    handleLineChange = () => {
-        alert('You are in offline mode');
+    handleLineChange = (e) => {
+        if (window.navigator.onLine) {
+            document.body.classList.remove('OffLine')
+        }
+        else {
+            document.body.classList.add('OffLine')
+        }
     }
 
     handlePopState = (e) => {
@@ -66,9 +78,9 @@ class App extends React.Component {
         window.history.pushState({inGame: this.state.inGame, statsShowing: true}, 'app');
     };
 
-    handleStartNewGame = (difficulty, player, image) => {
+    handleStartNewGame = (difficulty, player, image, name) => {
         this.menuRef.current.setNewGameEnabled(true);
-        this.setState({inGame: true, difficulty: difficulty, player: player, image: image});
+        this.setState({inGame: true, difficulty: difficulty, player: player, image: image, name: name});
         window.history.pushState({inGame: true, statsShowing: this.state.statsShowing}, 'app');
     };
 
@@ -103,6 +115,7 @@ class App extends React.Component {
                                   onGameOver={this.handleGameOver}
                                   difficulty={this.state.difficulty}
                                   image={this.state.image}
+                                  name={this.state.name}
                                   spaceWidth={w}
                                   spaceHeight={h}/>
                             :

@@ -25,6 +25,7 @@ class Menu extends React.Component {
             <div className='Menu'>
                 <button onClick={this.handleNewGameClick} disabled={!this.state.newGameEnabled}>New game</button>
                 <button onClick={this.handleStatsClick}>Stats</button>
+                <label className='OfflineIndicator'>Offline</label>
             </div>
         );
     }
