@@ -39,7 +39,7 @@
     margin: 0.5em 0 0 0;
     background-color: #ff7676;
     border: 2px solid #ff3131;
-    visibility: visible;
+    visibility: hidden;
     float: bottom;
     text-align: center;
 }
