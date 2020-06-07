@@ -14,6 +14,12 @@ import getOpponent from "../../engine/ReversiUtils";
 
 class Game extends React.Component {
 
+    /**
+     * Constructs the game board component
+     *
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.createRefs();
@@ -48,6 +54,12 @@ class Game extends React.Component {
         this.bell = new Audio(bellFile);
     }
 
+    /**
+     * Updates the size of the board area. The size of the actual board is computed from this.
+     *
+     * @param spaceHeight height of the board area
+     * @param spaceWidth width of the board area
+     */
     updateSize(spaceHeight, spaceWidth) {
         if (spaceHeight > spaceWidth) {
             this.setState({boardSize: spaceWidth})
@@ -56,6 +68,9 @@ class Game extends React.Component {
         }
     }
 
+    /**
+     * Creates refs for the squares on the board
+     */
     createRefs() {
         let squares = [];
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
@@ -68,6 +83,11 @@ class Game extends React.Component {
         this.squareRefs = squares;
     }
 
+    /**
+     * Makes a move to the given square
+     *
+     * @param square {Square} the square
+     */
     makeMove = (square) => {
         let validMove = this.board.getMove(square.props.rowIndex, square.props.columnIndex);
         if (validMove) {
@@ -95,6 +115,9 @@ class Game extends React.Component {
         }
     };
 
+    /**
+     * Makes opponents move
+     */
     makeOpponentMove() {
         let oppMove = this.opponent.nextMove(this.board);
         this.board.makeMove(oppMove);
@@ -112,6 +135,9 @@ class Game extends React.Component {
         }
     }
 
+    /**
+     * Updates the visual squares after moves
+     */
     updateBoard() {
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 8; columnIndex++) {
@@ -131,7 +157,12 @@ class Game extends React.Component {
         }
     }
 
-    onMouseEnterSquare = (square) => {
+    /**
+     * Handles a mouse entering a square
+     *
+     * @param square {Square} square
+     */
+    handleMouseEnterSquare = (square) => {
         let move = square.state.move;
         if (!move) {
             return;
@@ -141,6 +172,11 @@ class Game extends React.Component {
         }
     };
 
+    /**
+     * Handles a mouse leaving a square
+     *
+     * @param square {Square} square
+     */
     onMouseLeaveSquare = (square) => {
         let move = square.state.move;
         if (!move) {
@@ -151,10 +187,19 @@ class Game extends React.Component {
         }
     };
 
+    /**
+     * @param position position of the square
+     * @returns {Square} square component
+     */
     getSquare(position) {
         return this.squareRefs[position.rowIndex][position.columnIndex].current;
     }
 
+    /**
+     * Updates the local storage after a game according to the stats of the game
+     *
+     * @param gameStats {*} game stats
+     */
     updateLocalStorage(gameStats) {
         let won = gameStats.winner === this.player ? 1 : 0;
         if (!localStorage.getItem("victories")) {
@@ -206,7 +251,7 @@ class Game extends React.Component {
                                            piece={piece}
                                            move={this.board.getMove(rowIndex, columnIndex)}
                                            onClick={this.makeMove}
-                                           onMouseEnter={this.onMouseEnterSquare}
+                                           onMouseEnter={this.handleMouseEnterSquare}
                                            onMouseLeave={this.onMouseLeaveSquare}/>
                         })
                     }

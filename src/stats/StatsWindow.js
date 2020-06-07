@@ -2,6 +2,12 @@ import React from "react";
 
 class StatsWindow extends React.Component {
 
+    /**
+     * Constructs the Stats window component
+     *
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.state = {victories: 0};
@@ -11,6 +17,9 @@ class StatsWindow extends React.Component {
         this.update();
     }
 
+    /**
+     * Updates the stats by reading the local storage
+     */
     update() {
         let gamesPlayed = localStorage.getItem("gamesPlayed");
         if (!gamesPlayed) {

@@ -7,6 +7,12 @@ import Game from "./game_space/game/Game";
 
 class App extends React.Component {
 
+    /**
+     * Constructs  App component
+     *
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.menuRef = React.createRef();
@@ -24,6 +30,9 @@ class App extends React.Component {
         }
     }
 
+    /**
+     * Handler for changes between online and offline mode
+     */
     handleLineChange = () => {
         if (window.navigator.onLine) {
             document.body.classList.remove('Offline')
@@ -32,6 +41,11 @@ class App extends React.Component {
         }
     }
 
+    /**
+     * Handler for the pop state event
+     *
+     * @param {Event} e pop state event
+     */
     handlePopState = (e) => {
         if (e.state.statsShowing) {
             document.body.classList.add('ModalVisible');
@@ -42,14 +56,17 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.updateWindowDimensions);
+        window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
+        window.removeEventListener('resize', this.handleResize);
     }
 
-    updateWindowDimensions = () => {
+    /**
+     * Handler for the resize event
+     */
+    handleResize = () => {
         if (!this.state.inGame) {
             return;
         }
@@ -63,24 +80,36 @@ class App extends React.Component {
         this.gameRef.current.updateSize(h, w)
     };
 
+    /**
+     * Handler for clicking the 'New game' button
+     */
     handleNewGameClick = () => {
         this.setState({inGame: false});
         this.menuRef.current.setNewGameEnabled(false);
         window.history.pushState({inGame: false, statsShowing: this.state.statsShowing}, 'app');
     };
 
+    /**
+     * Handler for clicking the 'Stats' button
+     */
     handleStatsClick = () => {
         this.setState({statsShowing: true});
         document.body.classList.add('ModalVisible');
         window.history.pushState({inGame: this.state.inGame, statsShowing: true}, 'app');
     };
 
+    /**
+     * Starts a new game with the parameters from the new form form
+     */
     handleStartNewGame = (difficulty, player, image, name, svg) => {
         this.menuRef.current.setNewGameEnabled(true);
         this.setState({inGame: true, difficulty: difficulty, player: player, image: image, name: name, svg: svg});
         window.history.pushState({inGame: true, statsShowing: this.state.statsShowing}, 'app');
     };
 
+    /**
+     * Handles game over
+     */
     handleGameOver = () => {
         this.setState({inGame: false});
         this.menuRef.current.setNewGameEnabled(false);
@@ -88,6 +117,9 @@ class App extends React.Component {
         window.history.pushState({inGame: false, statsShowing: this.state.statsShowing}, 'app');
     };
 
+    /**
+     * Handles the cross button on the stats modal window
+     */
     handleCloseModalClick = () => {
         this.setState({statsShowing: false})
         document.body.classList.remove('ModalVisible');

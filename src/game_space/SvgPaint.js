@@ -2,6 +2,11 @@ import React from "react";
 
 class SvgPaint extends React.Component {
 
+    /**
+     * Constructs the Svg paint component
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.currPath = null;
@@ -10,10 +15,18 @@ class SvgPaint extends React.Component {
         this.state = {picture: {points: [], paths: []}}
     }
 
+    /**
+     * @returns {*} the structure of the svg picture
+     */
     getSvgData() {
         return this.state.picture;
     }
 
+    /**
+     * Handler for the click event
+     *
+     * @param e click event
+     */
     handleClick = (e) => {
         if (e.shiftKey) {
             this.clearCanvas();
@@ -24,6 +37,9 @@ class SvgPaint extends React.Component {
         }
     }
 
+    /**
+     * Clears canvas
+     */
     clearCanvas() {
         this.currPath = null;
         this.canvas.current.innerHTML = "";
@@ -31,6 +47,12 @@ class SvgPaint extends React.Component {
         this.state = {picture: {points: [], paths: []}}
     }
 
+    /**
+     * Starts new path at position
+     *
+     * @param x {Number} x coordinate
+     * @param y {Number} y coordinate
+     */
     startNewPath(x, y) {
         let pic = this.state.picture;
 
@@ -55,10 +77,16 @@ class SvgPaint extends React.Component {
         this.setState({picture: pic})
         this.setState({picture: pic})
 
-        //this.drawPoint(x, y);
+        this.drawPoint(x, y);
         this.empty = false;
     }
 
+    /**
+     * Extends an existing path
+     *
+     * @param x {Number} x coordinate
+     * @param y {Number} y coordinate
+     */
     extendCurrPath(x, y) {
         let d = this.currPath.getAttributeNS(null, "d");
         d += `L ${x} ${y} `;
@@ -71,24 +99,28 @@ class SvgPaint extends React.Component {
         pic.paths[pic.paths.length - 1].d = path.d;
         this.setState({picture: pic})
 
-        //this.drawPoint(x, y);
         this.empty = false;
     }
 
+    /**
+     * Draws a point on the canvas
+     *
+     * @param x {Number} x coordinate
+     * @param y {Number} y coordinate
+     */
     drawPoint(x, y) {
         let point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         point.setAttributeNS(null, "cx", x);
         point.setAttributeNS(null, "cy", y);
-        point.setAttributeNS(null, "r", "5");
+        point.setAttributeNS(null, "r", "2");
         point.setAttributeNS(null, "fill", "red");
         this.canvas.current.appendChild(point);
         let pic = this.state.picture;
-        pic.points.push({x: x, y: y, r: '5', fill: 'red'})
+        pic.points.push({x: x, y: y, r: '2', fill: 'red'})
         this.setState({picture: pic});
     }
 
     render() {
-
         return (
             <svg viewBox='0 0 100 100' ref={this.canvas} onClick={this.handleClick}>
             </svg>

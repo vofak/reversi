@@ -4,31 +4,61 @@ import PieceEnum from "./PieceEnum";
 
 class Square extends React.Component {
 
+    /**
+     * Constructs the square component
+     *
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.state = {piece: this.props.piece, move: this.props.move, toReverse: false};
     }
 
+    /**
+     * Sets the piece
+     *
+     * @param piece {PieceEnum} piece
+     */
     setPiece(piece) {
         this.setState({piece: piece});
     }
 
+    /**
+     * Sets the valid move indicator
+     *
+     * @param move {Boolean} is valid move indicator
+     */
     setMove(move) {
         this.setState({move: move});
     }
 
+    /**
+     * Sets the to reverse square indicator
+     *
+     * @param toReverse {Boolean} is to reverse square indicator
+     */
     setToReverse(toReverse) {
         this.setState({toReverse: toReverse});
     }
 
-    onClick = () => {
+    /**
+     * Handler for clicking the square
+     */
+    handleClick = () => {
         this.props.onClick(this);
     };
 
-    onMouseEnter = () => {
+    /**
+     * Handler for mouse entering the square
+     */
+    handleMouseEnter = () => {
         this.props.onMouseEnter(this);
     };
 
+    /**
+     * Handler for mouse leaving the square
+     */
     onMouseLeave = () => {
         this.props.onMouseLeave(this);
     };
@@ -50,8 +80,8 @@ class Square extends React.Component {
         return (
             <div
                 className={`Square ${this.state.toReverse ? 'ToReverseSquare' : ''} ${this.state.move ? 'MoveSquare' : ''}`}
-                onClick={this.onClick}
-                onMouseEnter={this.onMouseEnter}
+                onClick={this.handleClick}
+                onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.onMouseLeave}
             >
                 {piece}
@@ -59,6 +89,10 @@ class Square extends React.Component {
         )
     }
 
+    /**
+     * @param color {String} color string
+     * @returns {*} svg element of the piece
+     */
     getSvgPiece(color) {
         return (
             <svg xmlns="http://www.w3.org/2000/svg" className='Piece'>
@@ -67,6 +101,10 @@ class Square extends React.Component {
         )
     }
 
+    /**
+     * @param src {String} src of the image
+     * @returns {*} img element of the piece
+     */
     getImgPiece(src) {
         return (
             <div className={'Piece'}>
@@ -75,8 +113,11 @@ class Square extends React.Component {
         )
     }
 
+    /**
+     * @param svgData {*} structure representing the svg data
+     * @returns {*} svg element of the piece
+     */
     getSvgPaintPiece(svgData) {
-
         return (
             <div className={'Piece'}>
                 <svg viewBox='0 0 100 100'>

@@ -7,13 +7,24 @@ import SvgPaint from "./SvgPaint";
 
 class NewGame extends React.Component {
 
+    /**
+     * Constructs the new game form component
+     *
+     * @param props
+     * @param context
+     */
     constructor(props, context) {
         super(props, context);
         this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name: ''};
         this.svgPaint = React.createRef();
     }
 
-    onDifficultyChange = (e) => {
+    /**
+     * Handler for changing the difficulty
+     *
+     * @param e event
+     */
+    handleDifficultyChange = (e) => {
         let difficulty = null;
         switch (e.target.value) {
             case "random":
@@ -31,7 +42,12 @@ class NewGame extends React.Component {
         this.setState({selectedDifficulty: difficulty});
     };
 
-    onPlayerChange = (e) => {
+    /**
+     * Handler for changing the color
+     *
+     * @param e event
+     */
+    handlePlayerChange = (e) => {
         let player = null;
         if (e.target.value === "white") {
             player = PlayerEnum.white;
@@ -43,12 +59,22 @@ class NewGame extends React.Component {
         this.setState({selectedPlayer: player});
     };
 
-    onSubmit = (e) => {
+    /**
+     * Handler for clicking the submit button
+     *
+     * @param e {Event} event
+     */
+    handleSubmit = (e) => {
         e.preventDefault();
         this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image, this.state.name, this.svgPaint.current.empty ? null : this.svgPaint.current.getSvgData());
     };
 
-    onDrop = (e) => {
+    /**
+     * Handler for dropping a picture to the DnD area
+     *
+     * @param e event
+     */
+    handleDrop = (e) => {
         e.preventDefault();
         let images = e.dataTransfer.files;
         let image = images[0];
@@ -63,35 +89,40 @@ class NewGame extends React.Component {
         }
     };
 
-    onNameChange = (e) => {
+    /**
+     * Handler for changing the name of the player
+     *
+     * @param e event
+     */
+    handleNameChange = (e) => {
         this.setState({name: e.target.value})
     };
 
     render() {
         return (
             <div className='NewGame'>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.handleSubmit}>
                     <div className='FormSection'>
                         <input type='text' id='name' placeholder='Name' required autoFocus autoComplete='off'
-                               onChange={this.onNameChange}/>
+                               onChange={this.handleNameChange}/>
                     </div>
 
                     <div className='FormSection'>
                         <input type="radio" id="random" name="difficulty" value="random"
                                checked={this.state.selectedDifficulty === DifficultyEnum.random}
-                               onChange={this.onDifficultyChange}/>
+                               onChange={this.handleDifficultyChange}/>
                         <label htmlFor="random">
                             Random
                         </label>
                         <input type="radio" id="hungry" name="difficulty" value="hungry"
                                checked={this.state.selectedDifficulty === DifficultyEnum.hungry}
-                               onChange={this.onDifficultyChange}/>
+                               onChange={this.handleDifficultyChange}/>
                         <label htmlFor="hungry">
                             Hungry
                         </label>
                         <input type="radio" id="simple" name="difficulty" value="simple"
                                checked={this.state.selectedDifficulty === DifficultyEnum.simple}
-                               onChange={this.onDifficultyChange}/>
+                               onChange={this.handleDifficultyChange}/>
                         <label htmlFor="simple">
                             Simple
                         </label>
@@ -100,18 +131,18 @@ class NewGame extends React.Component {
                     <div className='FormSection'>
                         <input type="radio" id="white" name="color" value="white"
                                checked={this.state.selectedPlayer === PlayerEnum.white}
-                               onChange={this.onPlayerChange}/>
+                               onChange={this.handlePlayerChange}/>
                         <label htmlFor="white">
                             White
                         </label>
                         <input type="radio" id="black" name="color" value="black"
                                checked={this.state.selectedPlayer === PlayerEnum.black}
-                               onChange={this.onPlayerChange}/>
+                               onChange={this.handlePlayerChange}/>
                         <label htmlFor="black">
                             Black
                         </label>
                         <div className={'DnD'}
-                             onDrop={this.onDrop}
+                             onDrop={this.handleDrop}
                              onDragOver={e => e.preventDefault()}>{!this.state.image ? 'Drop a picture if you like' : 'Piece picture selected'}
                         </div>
                         <p>

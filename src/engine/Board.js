@@ -4,6 +4,10 @@ import PlayerEnum from "./player/PlayerEnum";
 import getOpponent from "./ReversiUtils";
 
 class Board {
+
+    /**
+     * Constructs the reversi board
+     */
     constructor() {
         this.grid = [];
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
@@ -20,6 +24,11 @@ class Board {
         this.winner = null;
     }
 
+    /**
+     * return a default classic initial board
+     *
+     * @returns {Board} the initial board
+     */
     static getDefaultInitBoard() {
         let ret = new Board();
         ret.grid[3][3] = PieceEnum.black;
@@ -30,19 +39,40 @@ class Board {
         return ret;
     }
 
+    /**
+     * Gets a piece at the given coordinate
+     *
+     * @param rowIndex y coordinate
+     * @param columnIndex x coordinate
+     * @returns {PieceEnum} piece on the position
+     */
     get(rowIndex, columnIndex) {
         return this.grid[rowIndex][columnIndex];
     }
 
+    /**
+     * Sets a piece at a position
+     *
+     * @param position {*} position
+     * @param piece {PieceEnum} piece to place
+     */
     set(position, piece) {
         this.grid[position.rowIndex][position.columnIndex] = piece;
         this.validMoves = null;
     }
 
+    /**
+     * @returns {number} number of the current move
+     */
     getMoveNumber() {
         return this.moveNumber;
     }
 
+    /**
+     * Makes a move
+     *
+     * @param move {*} move to make
+     */
     makeMove(move) {
         if (!this.isValidMove(move.rowIndex, move.columnIndex)) {
             throw new Error("The intended move is invalid");
@@ -60,6 +90,11 @@ class Board {
         }
     }
 
+    /**
+     * Resolves the winner of the game
+     *
+     * @returns {PlayerEnum} the winner
+     */
     findWinner() {
         let player = this.currPlayer;
         let opp = getOpponent(player);
@@ -81,6 +116,11 @@ class Board {
         return playerCount > oppCount ? player : opp;
     }
 
+    /**
+     * Reverts a move
+     *
+     * @param move {*} move to reverts
+     */
     undoMove(move) {
         this.set(move, PieceEnum.empty);
         for (let toReverse of move.toReverse) {
@@ -91,6 +131,11 @@ class Board {
         this.moveNumber--;
     }
 
+    /**
+     * Returns valid moves
+     *
+     * @returns {null|*[]} an array of valid moves
+     */
     getValidMoves() {
         if (this.validMoves === null) {
             if (!this.currPlayer) {
@@ -114,8 +159,15 @@ class Board {
         return this.validMoves;
     }
 
+    /**
+     * Resolves the validity of a move to the given coordinates
+     *
+     * @param rowIndex {Number} y coordinate
+     * @param columnIndex {Number} x coordinate
+     * @returns {boolean} is the move valid
+     */
     isValidMove(rowIndex, columnIndex) {
-        let validMoves = this.getValidMoves(this.currPlayer);
+        let validMoves = this.getValidMoves();
         for (let validMove of validMoves) {
             if (validMove.rowIndex === rowIndex && validMove.columnIndex === columnIndex) {
                 return true;
@@ -124,8 +176,14 @@ class Board {
         return false;
     }
 
+    /**
+     *
+     * @param rowIndex y coordinate
+     * @param columnIndex x coordinate
+     * @returns {any|*|boolean} false if the move is not valid, the move otherwise
+     */
     getMove(rowIndex, columnIndex) {
-        let validMoves = this.getValidMoves(this.currPlayer);
+        let validMoves = this.getValidMoves();
         for (let validMove of validMoves) {
             if (validMove.rowIndex === rowIndex && validMove.columnIndex === columnIndex) {
                 return validMove;
@@ -134,6 +192,13 @@ class Board {
         return false;
     }
 
+    /**
+     *
+     * @param player {PlayerEnum} player to move
+     * @param rowIndex {Number} y coordinate
+     * @param columnIndex {Number} x coordinate
+     * @returns {[]} array of positions to be reversed by a move to the given coordinates
+     */
     getToReverse(player, rowIndex, columnIndex) {
         let ret = [];
 
@@ -148,6 +213,15 @@ class Board {
         return ret;
     }
 
+    /**
+     *
+     * @param player {PlayerEnum} player to move
+     * @param rowIndex {Number} y coordinate
+     * @param columnIndex {Number} x coordinate
+     * @param rowDiff {Number} y direction
+     * @param columnDiff {Number} x direction
+     * @returns {[]|*[]} array of positions to be reversed in the given direction by a move to the given coordinates
+     */
     getToReverseInDirection(player, rowIndex, columnIndex, rowDiff, columnDiff) {
         let ret = [];
 
@@ -169,6 +243,12 @@ class Board {
         }
     }
 
+    /**
+     *
+     * @param rowIndex {Number} y coordinate
+     * @param columnIndex {Number} x coordinate
+     * @returns {boolean} indicator whether the given position is on the board
+     */
     isOnBoard(rowIndex, columnIndex) {
         return rowIndex >= 0 && rowIndex < 8
             && columnIndex >= 0 && columnIndex < 8;
