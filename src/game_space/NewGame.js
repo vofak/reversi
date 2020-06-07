@@ -2,12 +2,16 @@ import React from "react";
 import './NewGame.css';
 import DifficultyEnum from "./DifficultyEnum";
 import PlayerEnum from "../engine/player/PlayerEnum";
+import SvgPaint from "./SvgPaint";
+
+
 
 class NewGame extends React.Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name:''};
+        this.svgPaint = React.createRef();
     }
 
     onDifficultyChange = (e) => {
@@ -42,7 +46,7 @@ class NewGame extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image, this.state.name);
+        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image, this.state.name, this.svgPaint.current.empty ? null : this.svgPaint.current.getSvgData());
     };
 
     onDrop = (e) => {
@@ -107,7 +111,18 @@ class NewGame extends React.Component {
                         <label htmlFor="black">
                             Black
                         </label>
-                        <div className={'DnD'} onDrop={this.onDrop} onDragOver={e => e.preventDefault()}>{!this.state.image ? 'Drop a picture if you like' : 'Piece picture selected'}</div>
+                        <div className={'DnD'}
+                             onDrop={this.onDrop}
+                             onDragOver={e => e.preventDefault()}>{!this.state.image ? 'Drop a picture if you like' : 'Piece picture selected'}
+                        </div>
+                        <p>
+                            Drag and Drop a picture of something you like so you can play as the picture.
+                        </p>
+                        <SvgPaint ref={this.svgPaint}/>
+                        <p>
+                            Draw a picture of something you don't like so the opponent plays as that. Left clicks for lines.
+                            Left click + shift for clearing the canvas. Left Click + ctrl for starting a new path
+                        </p>
                     </div>
 
                     <footer>

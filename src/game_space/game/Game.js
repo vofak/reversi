@@ -10,6 +10,7 @@ import DifficultyEnum from "../DifficultyEnum";
 import RandomPlayer from "../../engine/player/RandomPlayer";
 import HungryPlayer from "../../engine/player/HungryPlayer";
 import PlayerEnum from "../../engine/player/PlayerEnum";
+import getOpponent from "../../engine/ReversiUtils";
 
 class Game extends React.Component {
 
@@ -19,6 +20,7 @@ class Game extends React.Component {
         this.board = Board.getDefaultInitBoard();
         this.player = props.player;
         this.image = props.image;
+        this.svg = props.svg;
         this.name = props.name;
         switch (this.props.difficulty) {
             case DifficultyEnum.random:
@@ -112,7 +114,11 @@ class Game extends React.Component {
                 square.setMove(validMove);
                 if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
                     square.setPiece(this.image);
-                } else {
+                }
+                else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
+                    square.setPiece(this.svg);
+                }
+                else {
                     square.setPiece(this.board.get(rowIndex, columnIndex));
                 }
                 square.setToReverse(false);
@@ -186,7 +192,11 @@ class Game extends React.Component {
                                 let piece;
                                 if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
                                     piece = this.image;
-                                } else {
+                                }
+                                else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
+                                    piece = this.svg;
+                                }
+                                else {
                                     piece = this.board.get(rowIndex, columnIndex);
                                 }
                                 return <Square rowIndex={rowIndex}

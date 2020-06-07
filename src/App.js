@@ -78,9 +78,9 @@ class App extends React.Component {
         window.history.pushState({inGame: this.state.inGame, statsShowing: true}, 'app');
     };
 
-    handleStartNewGame = (difficulty, player, image, name) => {
+    handleStartNewGame = (difficulty, player, image, name, svg) => {
         this.menuRef.current.setNewGameEnabled(true);
-        this.setState({inGame: true, difficulty: difficulty, player: player, image: image, name: name});
+        this.setState({inGame: true, difficulty: difficulty, player: player, image: image, name: name, svg: svg});
         window.history.pushState({inGame: true, statsShowing: this.state.statsShowing}, 'app');
     };
 
@@ -116,6 +116,7 @@ class App extends React.Component {
                                   difficulty={this.state.difficulty}
                                   image={this.state.image}
                                   name={this.state.name}
+                                  svg={this.state.svg}
                                   spaceWidth={w}
                                   spaceHeight={h}/>
                             :

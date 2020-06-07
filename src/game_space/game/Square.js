@@ -1,6 +1,7 @@
-import React from "react";
+import React, {cloneElement} from "react";
 import './Square.css';
 import PieceEnum from "./PieceEnum";
+import SvgPaint from "../SvgPaint";
 
 class Square extends React.Component {
 
@@ -35,24 +36,27 @@ class Square extends React.Component {
 
     render() {
         let piece;
-        if (this.state.piece === PieceEnum.white) {
+        if (this.state.piece === PieceEnum.empty) {
+            piece = '';
+        } else if (this.state.piece === PieceEnum.white) {
             piece = this.getSvgPiece('white');
         } else if (this.state.piece === PieceEnum.black) {
             piece = this.getSvgPiece('black');
         } else if (this.state.piece instanceof Image) {
             piece = this.getImgPiece(this.state.piece);
         } else {
-            piece = '';
+            piece = this.getSvgPaintPiece(this.state.piece);
         }
 
         return (
-                <div className={`Square ${this.state.toReverse ? 'ToReverseSquare' : ''} ${this.state.move ? 'MoveSquare' : ''}`}
-                     onClick={this.onClick}
-                     onMouseEnter={this.onMouseEnter}
-                     onMouseLeave={this.onMouseLeave}
-                >
-                    {piece}
-                </div>
+            <div
+                className={`Square ${this.state.toReverse ? 'ToReverseSquare' : ''} ${this.state.move ? 'MoveSquare' : ''}`}
+                onClick={this.onClick}
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}
+            >
+                {piece}
+            </div>
         )
     }
 
@@ -68,6 +72,21 @@ class Square extends React.Component {
         return (
             <div className={'Piece'}>
                 <img src={src.src} alt={'piece'} style={{height: '100%'}}/>
+            </div>
+        )
+    }
+
+    getSvgPaintPiece(svgData) {
+
+        return (
+            <div className={'Piece'}>
+                <svg viewBox='0 0 100 100'>
+                    {
+                        svgData.paths.map(path => {
+                            return <path d={path.d} fill={path.fill} stroke={path.stroke} strokeWidth={path.strokeWidth}/>
+                        })
+                    }
+                </svg>
             </div>
         )
     }

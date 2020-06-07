@@ -59,13 +59,69 @@
     outline: none;
 }
 
+.NewGame svg {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 1px dotted black;
+}
+
 .DnD {
-    height:70px;
+    height: 70px;
     border-radius: 50px;
     border: 2px dotted #a0a0a0;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 5px;
+}
+
+.DnD + p {
+    visibility: hidden;
+    height: 0;
+    cursor: text;
+}
+
+.DnD:hover + p {
+    visibility: visible;
+    height: 60px;
+    animation-duration: 0.5s;
+    animation-name: height60px;
+}
+
+svg + p {
+    height: 0;
+    visibility: hidden;
+    cursor: text;
+}
+
+svg:hover + p {
+    height: 90px;
+    visibility: visible;
+    animation-duration: 0.5s;
+    animation-name: height90px;
+}
+
+@keyframes height60px {
+    0% {
+        height: 0;
+        transform: scale(0);
+    }
+    100% {
+        height: 60px;
+        transform: scale(1);
+    }
+}
+
+@keyframes height90px {
+    0% {
+        height: 0;
+        transform: scale(0);
+    }
+    100% {
+        height: 90px;
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeIn {
