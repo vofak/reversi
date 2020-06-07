@@ -33,7 +33,7 @@
     outline: 0;
 }
 
-.Menu .OfflineIndicator {
+.OfflineIndicator {
     width: 90%;
     border-radius: 10px;
     margin: 0.5em 0 0 0;
@@ -44,7 +44,7 @@
     text-align: center;
 }
 
-body.Offline .Menu .OfflineIndicator {
+body.Offline .OfflineIndicator {
     visibility: visible;
 }
 

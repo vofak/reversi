@@ -19,19 +19,19 @@ class App extends React.Component {
         window.addEventListener('offline', this.handleLineChange);
         window.addEventListener('online', this.handleLineChange);
         if (window.navigator.onLine) {
-            document.body.classList.remove('OffLine')
+            document.body.classList.remove('Offline')
         }
         else {
-            document.body.classList.add('OffLine')
+            document.body.classList.add('Offline')
         }
     }
 
     handleLineChange = (e) => {
         if (window.navigator.onLine) {
-            document.body.classList.remove('OffLine')
+            document.body.classList.remove('Offline')
         }
         else {
-            document.body.classList.add('OffLine')
+            document.body.classList.add('Offline')
         }
     }
 
