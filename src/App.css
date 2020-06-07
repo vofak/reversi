@@ -27,7 +27,7 @@
     width: 100px;
     height: 100vh;
     flex-grow: 0;
-    animation-name: flyInFromRight;
+    animation-name: flyInFromRight100px;
     animation-duration: 1.8s;
 }
 

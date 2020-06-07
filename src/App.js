@@ -16,6 +16,11 @@ class App extends React.Component {
         this.state = {inGame: false, statsShowing: false}
         window.addEventListener('popstate', this.handlePopState);
         window.history.replaceState({inGame: this.state.inGame, statsShowing: this.state.statsShowing}, 'app');
+        window.addEventListener('ofline', this.handleLineChange);
+    }
+
+    handleLineChange = () => {
+        alert('You are in offline mode');
     }
 
     handlePopState = (e) => {
