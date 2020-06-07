@@ -40,7 +40,6 @@
     background-color: #ff7676;
     border: 2px solid #ff3131;
     visibility: hidden;
-    float: bottom;
     text-align: center;
 }
 
@@ -62,6 +61,5 @@ body.Offline .OfflineIndicator {
 
     .Menu .OfflineIndicator {
         margin: auto 0 auto 1em;
-        float: right;
     }
 }
