@@ -54,7 +54,7 @@ class NewGame extends React.Component {
         let image = images[0];
         if (image.type.split("/")[0] === "image") {
             let fr = new FileReader();
-            fr.addEventListener("load", e => {
+            fr.addEventListener("load", () => {
                 let i = new Image();
                 i.src = fr.result;
                 this.setState({image: i})

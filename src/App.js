@@ -24,7 +24,7 @@ class App extends React.Component {
         }
     }
 
-    handleLineChange = (e) => {
+    handleLineChange = () => {
         if (window.navigator.onLine) {
             document.body.classList.remove('Offline')
         } else {

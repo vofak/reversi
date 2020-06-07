@@ -1,7 +1,6 @@
-import React, {cloneElement} from "react";
+import React from "react";
 import './Square.css';
 import PieceEnum from "./PieceEnum";
-import SvgPaint from "../SvgPaint";
 
 class Square extends React.Component {
 
