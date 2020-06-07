@@ -2,8 +2,16 @@
   "name": "reversi",
   "version": "1.0.0",
   "description": "The game of Reversi/Othello",
-  "keywords": ["reversi", "othello", "game", "KAJ", "react"],
-  "author": {"name": "Vojtech Foret"},
+  "keywords": [
+    "reversi",
+    "othello",
+    "game",
+    "KAJ",
+    "react"
+  ],
+  "author": {
+    "name": "Vojtech Foret"
+  },
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -38,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "jsdoc": "^3.6.4"
   }
 }
