@@ -7,7 +7,6 @@ import Game from "./game_space/game/Game";
 
 class App extends React.Component {
 
-
     constructor(props, context) {
         super(props, context);
         this.menuRef = React.createRef();
@@ -20,8 +19,7 @@ class App extends React.Component {
         window.addEventListener('online', this.handleLineChange);
         if (window.navigator.onLine) {
             document.body.classList.remove('Offline')
-        }
-        else {
+        } else {
             document.body.classList.add('Offline')
         }
     }
@@ -29,8 +27,7 @@ class App extends React.Component {
     handleLineChange = (e) => {
         if (window.navigator.onLine) {
             document.body.classList.remove('Offline')
-        }
-        else {
+        } else {
             document.body.classList.add('Offline')
         }
     }

@@ -5,12 +5,11 @@ import PlayerEnum from "../engine/player/PlayerEnum";
 import SvgPaint from "./SvgPaint";
 
 
-
 class NewGame extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name:''};
+        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name: ''};
         this.svgPaint = React.createRef();
     }
 
@@ -74,7 +73,7 @@ class NewGame extends React.Component {
                 <form onSubmit={this.onSubmit}>
                     <div className='FormSection'>
                         <input type='text' id='name' placeholder='Name' required autoFocus autoComplete='off'
-                        onChange={this.onNameChange}/>
+                               onChange={this.onNameChange}/>
                     </div>
 
                     <div className='FormSection'>
@@ -120,7 +119,8 @@ class NewGame extends React.Component {
                         </p>
                         <SvgPaint ref={this.svgPaint}/>
                         <p>
-                            Draw a picture of something you don't like so the opponent plays as that. Left clicks for lines.
+                            Draw a picture of something you don't like so the opponent plays as that. Left clicks for
+                            lines.
                             Left click + shift for clearing the canvas. Left Click + ctrl for starting a new path
                         </p>
                     </div>

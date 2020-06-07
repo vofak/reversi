@@ -41,8 +41,7 @@ class Game extends React.Component {
         }
         if (this.props.spaceHeight > this.props.spaceWidth) {
             this.state = {boardSize: this.props.spaceWidth}
-        }
-        else {
+        } else {
             this.state = {boardSize: this.props.spaceHeight}
         }
         this.tick = new Audio(tickFile);
@@ -52,8 +51,7 @@ class Game extends React.Component {
     updateSize(spaceHeight, spaceWidth) {
         if (spaceHeight > spaceWidth) {
             this.setState({boardSize: spaceWidth})
-        }
-        else {
+        } else {
             this.setState({boardSize: spaceHeight})
         }
     }
@@ -79,7 +77,11 @@ class Game extends React.Component {
                 this.bell.pause();
                 this.bell.currentTime = 0;
                 this.bell.play();
-                this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount, name: this.name});
+                this.updateLocalStorage({
+                    winner: this.board.winner,
+                    pieceCount: this.board.playerPieceCount,
+                    name: this.name
+                });
                 alert(`${this.board.winner.name} won!!!`)
                 this.props.onGameOver();
                 return;
@@ -100,7 +102,11 @@ class Game extends React.Component {
             this.bell.pause();
             this.bell.currentTime = 0;
             this.bell.play();
-            this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount, name: this.name});
+            this.updateLocalStorage({
+                winner: this.board.winner,
+                pieceCount: this.board.playerPieceCount,
+                name: this.name
+            });
             alert(`${this.board.winner.name} won!!!`)
             this.props.onGameOver();
         }
@@ -114,11 +120,9 @@ class Game extends React.Component {
                 square.setMove(validMove);
                 if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
                     square.setPiece(this.image);
-                }
-                else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
+                } else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
                     square.setPiece(this.svg);
-                }
-                else {
+                } else {
                     square.setPiece(this.board.get(rowIndex, columnIndex));
                 }
                 square.setToReverse(false);
@@ -172,8 +176,7 @@ class Game extends React.Component {
         if (!players) {
             players = {}
             players[gameStats.name] = 1;
-        }
-        else {
+        } else {
             if (!players[gameStats.name]) {
                 players[gameStats.name] = 0;
             }
@@ -184,33 +187,31 @@ class Game extends React.Component {
 
     render() {
         return (
-                <div className='board'
-                     style={{width: this.state.boardSize, height: this.state.boardSize}}>
-                    {this.board.grid.map((row, rowIndex) => {
-                        {
-                            return row.map((square, columnIndex) => {
-                                let piece;
-                                if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
-                                    piece = this.image;
-                                }
-                                else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
-                                    piece = this.svg;
-                                }
-                                else {
-                                    piece = this.board.get(rowIndex, columnIndex);
-                                }
-                                return <Square rowIndex={rowIndex}
-                                               columnIndex={columnIndex}
-                                               ref={this.squareRefs[rowIndex][columnIndex]}
-                                               piece={piece}
-                                               move={this.board.getMove(rowIndex, columnIndex)}
-                                               onClick={this.makeMove}
-                                               onMouseEnter={this.onMouseEnterSquare}
-                                               onMouseLeave={this.onMouseLeaveSquare}/>
-                            })
-                        }
-                    })}
-                </div>
+            <div className='board'
+                 style={{width: this.state.boardSize, height: this.state.boardSize}}>
+                {this.board.grid.map((row, rowIndex) => {
+                    {
+                        return row.map((square, columnIndex) => {
+                            let piece;
+                            if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
+                                piece = this.image;
+                            } else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
+                                piece = this.svg;
+                            } else {
+                                piece = this.board.get(rowIndex, columnIndex);
+                            }
+                            return <Square rowIndex={rowIndex}
+                                           columnIndex={columnIndex}
+                                           ref={this.squareRefs[rowIndex][columnIndex]}
+                                           piece={piece}
+                                           move={this.board.getMove(rowIndex, columnIndex)}
+                                           onClick={this.makeMove}
+                                           onMouseEnter={this.onMouseEnterSquare}
+                                           onMouseLeave={this.onMouseLeaveSquare}/>
+                        })
+                    }
+                })}
+            </div>
         )
     }
 }

@@ -83,7 +83,8 @@ class Square extends React.Component {
                 <svg viewBox='0 0 100 100'>
                     {
                         svgData.paths.map(path => {
-                            return <path d={path.d} fill={path.fill} stroke={path.stroke} strokeWidth={path.strokeWidth}/>
+                            return <path d={path.d} fill={path.fill} stroke={path.stroke}
+                                         strokeWidth={path.strokeWidth}/>
                         })
                     }
                 </svg>
