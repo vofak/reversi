@@ -76,8 +76,8 @@ class Game extends React.Component {
                 this.bell.pause();
                 this.bell.currentTime = 0;
                 this.bell.play();
-                alert(`${this.board.winner.name} won!!!`)
                 this.updateLocalStorage({winner: this.board.winner, pieceCount: this.board.playerPieceCount});
+                alert(`${this.board.winner.name} won!!!`)
                 this.props.onGameOver();
                 return;
             }
@@ -145,7 +145,7 @@ class Game extends React.Component {
     }
 
     updateLocalStorage(gameStats) {
-        let won = gameStats.winner === this.state.player ? 1 : 0;
+        let won = gameStats.winner === this.player ? 1 : 0;
         if (!localStorage.getItem("victories")) {
             localStorage.setItem("victories", won.toString());
         }
