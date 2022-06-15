@@ -4,6 +4,8 @@ import StatsWindow from "./stats/StatsWindow";
 import Menu from "./menu/Menu";
 import NewGame from "./game_space/NewGame";
 import Game from "./game_space/game/Game";
+import DifficultyEnum from "./game_space/DifficultyEnum";
+import PlayerEnum from "./engine/player/PlayerEnum";
 
 class App extends React.Component {
 
@@ -99,11 +101,18 @@ class App extends React.Component {
     };
 
     /**
-     * Starts a new game with the parameters from the new form form
+     * Starts a new game with the parameters from the new form
      */
     handleStartNewGame = (difficulty, player, image, name, svg) => {
         this.menuRef.current.setNewGameEnabled(true);
-        this.setState({inGame: true, difficulty: difficulty, player: player, image: image, name: name, svg: svg});
+        this.setState({
+            inGame: true,
+            difficulty: difficulty,
+            player: player,
+            image: image,
+            name: name,
+            svg: svg
+        });
         window.history.pushState({inGame: true, statsShowing: this.state.statsShowing}, 'app');
     };
 
@@ -138,18 +147,21 @@ class App extends React.Component {
             <div>
                 <div className='App'>
                     <section>
-                        {this.state.inGame ?
-                            <Game ref={this.gameRef}
-                                  player={this.state.player}
-                                  onGameOver={this.handleGameOver}
-                                  difficulty={this.state.difficulty}
-                                  image={this.state.image}
-                                  name={this.state.name}
-                                  svg={this.state.svg}
-                                  spaceWidth={w}
-                                  spaceHeight={h}/>
-                            :
-                            <NewGame onStartNewGame={this.handleStartNewGame}/>
+                        {this.state.inGame
+                            ? <Game ref={this.gameRef}
+                                    player={this.state.player}
+                                    onGameOver={this.handleGameOver}
+                                    difficulty={this.state.difficulty}
+                                    image={this.state.image}
+                                    name={this.state.name}
+                                    svg={this.state.svg}
+                                    spaceWidth={w}
+                                    spaceHeight={h}/>
+                            : <NewGame
+                                player={this.state.player || PlayerEnum.white}
+                                difficulty={this.state.difficulty || DifficultyEnum.random}
+                                name={this.state.name || ''}
+                                onStartNewGame={this.handleStartNewGame}/>
                         }
                     </section>
                     <nav>

@@ -15,7 +15,11 @@ class NewGame extends React.Component {
      */
     constructor(props, context) {
         super(props, context);
-        this.state = {selectedDifficulty: DifficultyEnum.random, selectedPlayer: PlayerEnum.white, name: ''};
+
+        this.state = {
+            selectedDifficulty: props.difficulty,
+            selectedPlayer: props.player,
+            name: props.name};
         this.svgPaint = React.createRef();
     }
 
@@ -113,6 +117,7 @@ class NewGame extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className='FormSection'>
                         <input type='text' id='name' placeholder='Name' required autoFocus autoComplete='off'
+                               value={this.state.name}
                                onChange={this.handleNameChange}/>
                     </div>
 
