@@ -19,7 +19,6 @@
     transition: all 0.5s ease;
 }
 
-
 .Menu button:hover:enabled {
     background-color: lightskyblue;
     border-color: blue;
@@ -33,33 +32,36 @@
     outline: 0;
 }
 
-.OfflineIndicator {
+.Menu .OfflineIndicator {
     width: 90%;
-    border-radius: 10px;
+    text-align: center;
     margin: 0.5em 0 0 0;
     background-color: #ff7676;
+    border-radius: 10px;
     border: 2px solid #ff3131;
     visibility: hidden;
-    text-align: center;
 }
 
-body.Offline .OfflineIndicator {
+body.Offline .Menu .OfflineIndicator {
     visibility: visible;
 }
 
 @media only screen and (max-width: 700px) {
-    .Menu button {
-        width: 90px;
-        height: 45px;
-        margin: auto 0 auto 1em;
-    }
 
     .Menu {
         flex-direction: row;
         height: 50px;
     }
 
-    .Menu .OfflineIndicator {
+    .Menu button {
+        width: 90px;
+        height: 45px;
         margin: auto 0 auto 1em;
+    }
+
+    .Menu .OfflineIndicator {
+        width: 90px;
+        margin: auto 1em auto auto;
+        float: right;
     }
 }
