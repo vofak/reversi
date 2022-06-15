@@ -108,16 +108,16 @@ body.ModalVisible .ModalContent {
         order: 1;
         width: 100vw;
         height: 100px;
-        animation-name: flyInFromRight100vw;
+        animation-name: flyInFromTop100px;
         animation-duration: 1.8s;
     }
 
-    @keyframes flyInFromRight100vw {
+    @keyframes flyInFromTop100px {
         0% {
-            transform: translateX(100vw);
+            transform: translateY(-100px);
         }
         50% {
-            transform: translateX(100vw);
+            transform: translateY(-100px);
         }
         100% {
             transform: translateX(0);
