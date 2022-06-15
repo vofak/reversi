@@ -12,7 +12,7 @@ class SvgPaint extends React.Component {
         this.currPath = null;
         this.canvas = React.createRef()
         this.empty = true;
-        this.state = {picture: {points: [], paths: []}}
+        this.state = {picture: {points: [], paths: [], color: 'black'}}
     }
 
     /**
@@ -44,7 +44,18 @@ class SvgPaint extends React.Component {
         this.currPath = null;
         this.canvas.current.innerHTML = "";
         this.empty = true;
-        this.state = {picture: {points: [], paths: []}}
+        this.state = {picture: {points: [], paths: [], color: 'black'}}
+    }
+
+    /**
+     * Changes the stroke color of the drawn picture
+     *
+     * @param color new stroke color
+     */
+    setColor(color) {
+        let pic = this.state.picture;
+        pic.color = color;
+        this.setState({picture: pic});
     }
 
     /**
@@ -58,13 +69,13 @@ class SvgPaint extends React.Component {
 
         if (!this.currPath) {
             this.currPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            this.currPath.setAttributeNS(null, "stroke", "black");
+            this.currPath.setAttributeNS(null, "stroke", 'black');
             this.currPath.setAttributeNS(null, "stroke-width", "5");
             this.currPath.setAttributeNS(null, "fill", "transparent");
             this.currPath.setAttributeNS(null, "d", "");
             this.canvas.current.appendChild(this.currPath);
 
-            pic.paths.push({x: x, y: y, r: '5', fill: 'transparent', stroke: 'black', strokeWidth: '5', d: ''})
+            pic.paths.push({x: x, y: y, r: '5', fill: 'transparent', strokeWidth: '5', d: ''})
         }
         let d = this.currPath.getAttributeNS(null, "d");
         d += `M ${x} ${y} `;
@@ -74,7 +85,6 @@ class SvgPaint extends React.Component {
         let path = pic.paths[pic.paths.length - 1];
         path.d += `M ${x} ${y} `;
         pic.paths[pic.paths.length - 1].d = path.d;
-        this.setState({picture: pic})
         this.setState({picture: pic})
 
         this.drawPoint(x, y);

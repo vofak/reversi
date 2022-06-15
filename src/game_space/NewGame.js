@@ -51,8 +51,10 @@ class NewGame extends React.Component {
         let player = null;
         if (e.target.value === "white") {
             player = PlayerEnum.white;
+            this.svgPaint.current.setColor("black");
         } else if (e.target.value === "black") {
             player = PlayerEnum.black;
+            this.svgPaint.current.setColor("white");
         } else {
             throw new Error("Unknown color");
         }
@@ -66,7 +68,14 @@ class NewGame extends React.Component {
      */
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.onStartNewGame(this.state.selectedDifficulty, this.state.selectedPlayer, this.state.image, this.state.name, this.svgPaint.current.empty ? null : this.svgPaint.current.getSvgData());
+        this.props.onStartNewGame(
+            this.state.selectedDifficulty,
+            this.state.selectedPlayer,
+            this.state.image,
+            this.state.name,
+            this.svgPaint.current.empty
+                ? null
+                : this.svgPaint.current.getSvgData());
     };
 
     /**
@@ -143,7 +152,8 @@ class NewGame extends React.Component {
                         </label>
                         <div className={'DnD'}
                              onDrop={this.handleDrop}
-                             onDragOver={e => e.preventDefault()}>{!this.state.image ? 'Drop a picture if you like' : 'Piece picture selected'}
+                             onDragOver={e => e.preventDefault()}>
+                            {this.state.image ? 'Piece picture selected' : 'Drop a picture if you like'}
                         </div>
                         <p>
                             Drag and Drop a picture of something you like so you can play as the picture.
