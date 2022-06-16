@@ -19,7 +19,9 @@ class NewGame extends React.Component {
         this.state = {
             selectedDifficulty: props.difficulty,
             selectedPlayer: props.player,
-            name: props.name};
+            name: props.name,
+            image: props.image,
+            svgPicture: props.svgPicture};
         this.svgPaint = React.createRef();
     }
 
@@ -163,7 +165,7 @@ class NewGame extends React.Component {
                         <p>
                             Drag and Drop a picture of something you like so you can play as the picture.
                         </p>
-                        <SvgPaint ref={this.svgPaint}/>
+                        <SvgPaint ref={this.svgPaint} picture={this.state.svgPicture}/>
                         <p>
                             Draw a picture of something you don't like so the opponent plays as that. Left clicks for
                             lines.

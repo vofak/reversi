@@ -11,8 +11,10 @@ class SvgPaint extends React.Component {
         super(props, context);
         this.currPath = null;
         this.canvas = React.createRef()
-        this.empty = true;
-        this.state = {picture: {points: [], paths: [], color: 'black'}}
+        this.empty = !props.picture;
+        this.state = props.picture
+            ? this.state = {picture: props.picture}
+            : {picture: {points: [], paths: [], color: 'black'}};
     }
 
     /**
@@ -133,6 +135,12 @@ class SvgPaint extends React.Component {
     render() {
         return (
             <svg viewBox='0 0 100 100' ref={this.canvas} onClick={this.handleClick}>
+                {
+                    this.state.picture.paths.map(path => {
+                        return <path d={path.d} fill={path.fill} stroke='black'
+                                     strokeWidth={path.strokeWidth}/>
+                    })
+                }
             </svg>
         )
     }

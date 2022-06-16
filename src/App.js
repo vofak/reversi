@@ -161,6 +161,8 @@ class App extends React.Component {
                                 player={this.state.player || PlayerEnum.white}
                                 difficulty={this.state.difficulty || DifficultyEnum.random}
                                 name={this.state.name || ''}
+                                image={this.state.image}
+                                svgPicture={this.state.svg}
                                 onStartNewGame={this.handleStartNewGame}/>
                         }
                     </section>
