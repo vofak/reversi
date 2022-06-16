@@ -1,4 +1,4 @@
-import PieceEnum from "../../game_space/game/PieceEnum";
+import PieceEnum from "./PieceEnum";
 
 const PlayerEnum = Object.freeze({
     white: {piece: PieceEnum.white, name: "White Player"},

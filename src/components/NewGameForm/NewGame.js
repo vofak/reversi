@@ -1,8 +1,8 @@
 import React from "react";
 import './NewGame.css';
-import DifficultyEnum from "./DifficultyEnum";
-import PlayerEnum from "../engine/player/PlayerEnum";
-import SvgPaint from "./SvgPaint";
+import DifficultyEnum from "../../common/DifficultyEnum";
+import PlayerEnum from "../../common/PlayerEnum";
+import SvgPaint from "../SvgPaint/SvgPaint";
 
 
 class NewGame extends React.Component {

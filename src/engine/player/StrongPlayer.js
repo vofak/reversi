@@ -1,4 +1,4 @@
-import PieceEnum from "../../game_space/game/PieceEnum";
+import PieceEnum from "../../common/PieceEnum";
 import getOpponent from "../ReversiUtils";
 import MinMaxPlayer from "./MinMaxPlayer";
 

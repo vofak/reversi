@@ -1,4 +1,4 @@
-import PlayerEnum from "./player/PlayerEnum";
+import PlayerEnum from "../common/PlayerEnum";
 
 /**
  * @param player {PlayerEnum} player

@@ -1,5 +1,5 @@
-import PieceEnum from "../game_space/game/PieceEnum";
-import PlayerEnum from "./player/PlayerEnum";
+import PieceEnum from "../common/PieceEnum";
+import PlayerEnum from "../common/PlayerEnum";
 import getOpponent from "./ReversiUtils";
 
 class Board {

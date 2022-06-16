@@ -1,15 +1,15 @@
 import React from "react";
 import './Game.css';
-import tickFile from './tick.mp3';
-import bellFile from './bell.mp3';
+import tickFile from '../../tick.mp3';
+import bellFile from '../../bell.mp3';
 
-import Square from './Square'
+import Square from '../Square/Square'
 import Board from '../../engine/Board';
 import SimplePlayer from "../../engine/player/SimplePlayer";
-import DifficultyEnum from "../DifficultyEnum";
+import DifficultyEnum from "../../common/DifficultyEnum";
 import RandomPlayer from "../../engine/player/RandomPlayer";
 import HungryPlayer from "../../engine/player/HungryPlayer";
-import PlayerEnum from "../../engine/player/PlayerEnum";
+import PlayerEnum from "../../common/PlayerEnum";
 import getOpponent from "../../engine/ReversiUtils";
 
 class Game extends React.Component {

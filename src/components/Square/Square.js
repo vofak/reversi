@@ -1,6 +1,6 @@
 import React from "react";
 import './Square.css';
-import PieceEnum from "./PieceEnum";
+import PieceEnum from "../../common/PieceEnum";
 
 class Square extends React.Component {
 

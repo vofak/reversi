@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import StatsWindow from "./stats/StatsWindow";
-import Menu from "./menu/Menu";
-import NewGame from "./game_space/NewGame";
-import Game from "./game_space/game/Game";
-import DifficultyEnum from "./game_space/DifficultyEnum";
-import PlayerEnum from "./engine/player/PlayerEnum";
+import StatsWindow from "../Stats/StatsWindow";
+import Menu from "../Menu/Menu";
+import NewGame from "../NewGameForm/NewGame";
+import Game from "../Game/Game";
+import DifficultyEnum from "../../common/DifficultyEnum";
+import PlayerEnum from "../../common/PlayerEnum";
 
 class App extends React.Component {
 
