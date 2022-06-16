@@ -67,13 +67,17 @@ class Square extends React.Component {
         let piece;
         if (this.state.piece === PieceEnum.empty) {
             piece = '';
-        } else if (this.state.piece === PieceEnum.white) {
+        }
+        else if (this.state.piece === PieceEnum.white) {
             piece = this.getSvgPiece('white');
-        } else if (this.state.piece === PieceEnum.black) {
+        }
+        else if (this.state.piece === PieceEnum.black) {
             piece = this.getSvgPiece('black');
-        } else if (this.state.piece instanceof Image) {
+        }
+        else if (this.state.piece instanceof Image) {
             piece = this.getImgPiece(this.state.piece);
-        } else {
+        }
+        else {
             piece = this.getSvgPaintPiece(this.state.piece);
         }
 

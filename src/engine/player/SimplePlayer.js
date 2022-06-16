@@ -2,10 +2,6 @@ import MinMaxPlayer from "./MinMaxPlayer";
 
 class SimplePlayer extends MinMaxPlayer {
 
-    constructor(depth) {
-        super(depth);
-    }
-
     evaluateBoard(board) {
         let ret = 0;
         for (let i = 0; i < 8; i++) {

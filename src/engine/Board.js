@@ -1,5 +1,4 @@
 import PieceEnum from "../game_space/game/PieceEnum";
-import React from "react";
 import PlayerEnum from "./player/PlayerEnum";
 import getOpponent from "./ReversiUtils";
 

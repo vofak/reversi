@@ -10,10 +10,6 @@ class StrongPlayer extends MinMaxPlayer {
         oppStable: {key: 3, val: -1}
     });
 
-    constructor(depth) {
-        super(depth);
-    }
-
     evaluateBoard(board) {
         let currentMobility = this.getCurrentMobility(board);
         let potentialMobility = this.getPotentialMobility(board);

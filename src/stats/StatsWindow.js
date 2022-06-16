@@ -48,10 +48,10 @@ class StatsWindow extends React.Component {
             }
         }
         let mostPlayed;
-        if (!highestName) {
-            mostPlayed = '-';
-        } else {
+        if (highestName) {
             mostPlayed = `${highestName} (${highestCount})`;
+        } else {
+            mostPlayed = '-';
         }
 
         this.setState({

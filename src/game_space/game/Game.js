@@ -218,14 +218,14 @@ class Game extends React.Component {
         localStorage.setItem("piecesReversed", (Number(localStorage.getItem("piecesReversed")) + gameStats.pieceCount).toString());
 
         let players = JSON.parse(localStorage.getItem("players"));
-        if (!players) {
-            players = {}
-            players[gameStats.name] = 1;
-        } else {
+        if (players) {
             if (!players[gameStats.name]) {
                 players[gameStats.name] = 0;
             }
             players[gameStats.name] += 1;
+        } else {
+            players = {}
+            players[gameStats.name] = 1;
         }
         localStorage.setItem("players", JSON.stringify(players));
     }
@@ -235,26 +235,24 @@ class Game extends React.Component {
             <div className='board'
                  style={{width: this.state.boardSize, height: this.state.boardSize}}>
                 {this.board.grid.map((row, rowIndex) => {
-                    {
-                        return row.map((square, columnIndex) => {
-                            let piece;
-                            if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
-                                piece = this.image;
-                            } else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
-                                piece = this.svg;
-                            } else {
-                                piece = this.board.get(rowIndex, columnIndex);
-                            }
-                            return <Square rowIndex={rowIndex}
-                                           columnIndex={columnIndex}
-                                           ref={this.squareRefs[rowIndex][columnIndex]}
-                                           piece={piece}
-                                           move={this.board.getMove(rowIndex, columnIndex)}
-                                           onClick={this.makeMove}
-                                           onMouseEnter={this.handleMouseEnterSquare}
-                                           onMouseLeave={this.onMouseLeaveSquare}/>
-                        })
-                    }
+                    return row.map((square, columnIndex) => {
+                        let piece;
+                        if (this.board.get(rowIndex, columnIndex) === this.player.piece && this.image) {
+                            piece = this.image;
+                        } else if (this.board.get(rowIndex, columnIndex) === getOpponent(this.player).piece && this.svg) {
+                            piece = this.svg;
+                        } else {
+                            piece = this.board.get(rowIndex, columnIndex);
+                        }
+                        return <Square rowIndex={rowIndex}
+                                       columnIndex={columnIndex}
+                                       ref={this.squareRefs[rowIndex][columnIndex]}
+                                       piece={piece}
+                                       move={this.board.getMove(rowIndex, columnIndex)}
+                                       onClick={this.makeMove}
+                                       onMouseEnter={this.handleMouseEnterSquare}
+                                       onMouseLeave={this.onMouseLeaveSquare}/>
+                    })
                 })}
             </div>
         )
