@@ -11,16 +11,13 @@ class Menu extends React.Component {
      */
     constructor(props, context) {
         super(props, context);
-        this.state = {newGameEnabled: false}
+        this.state = {newGameEnabled: props.newGameEnabled}
     }
 
-    /**
-     * Enables the new game button
-     *
-     * @param newGameEnabled
-     */
-    setNewGameEnabled(newGameEnabled) {
-        this.setState({newGameEnabled: newGameEnabled})
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.newGameEnabled !== prevProps.newGameEnabled) {
+            this.setState({newGameEnabled: this.props.newGameEnabled});
+        }
     }
 
     /**

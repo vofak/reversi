@@ -17,7 +17,6 @@ class App extends React.Component {
      */
     constructor(props, context) {
         super(props, context);
-        this.menuRef = React.createRef();
         this.gameRef = React.createRef();
         this.statsRef = React.createRef();
         this.state = {inGame: false, statsShowing: false}
@@ -87,7 +86,6 @@ class App extends React.Component {
      */
     handleNewGameClick = () => {
         this.setState({inGame: false});
-        this.menuRef.current.setNewGameEnabled(false);
         window.history.pushState({inGame: false, statsShowing: this.state.statsShowing}, 'app');
     };
 
@@ -104,7 +102,6 @@ class App extends React.Component {
      * Starts a new game with the parameters from the new form
      */
     handleStartNewGame = (difficulty, player, image, name, svg) => {
-        this.menuRef.current.setNewGameEnabled(true);
         this.setState({
             inGame: true,
             difficulty: difficulty,
@@ -121,7 +118,6 @@ class App extends React.Component {
      */
     handleGameOver = () => {
         this.setState({inGame: false});
-        this.menuRef.current.setNewGameEnabled(false);
         this.statsRef.current.update();
         window.history.pushState({inGame: false, statsShowing: this.state.statsShowing}, 'app');
     };
@@ -167,7 +163,7 @@ class App extends React.Component {
                         }
                     </section>
                     <nav>
-                        <Menu ref={this.menuRef}
+                        <Menu newGameEnabled={this.state.inGame}
                               handleNewGameClick={this.handleNewGameClick}
                               handleStatsClick={this.handleStatsClick}/>
                     </nav>

@@ -45,10 +45,10 @@ class Game extends React.Component {
         if (this.player !== PlayerEnum.white) {
             this.makeOpponentMove();
         }
-        if (this.props.spaceHeight > this.props.spaceWidth) {
-            this.state = {boardSize: this.props.spaceWidth}
+        if (props.spaceHeight > props.spaceWidth) {
+            this.state = {boardSize: props.spaceWidth}
         } else {
-            this.state = {boardSize: this.props.spaceHeight}
+            this.state = {boardSize: props.spaceHeight}
         }
         this.tick = new Audio(tickFile);
         this.bell = new Audio(bellFile);
